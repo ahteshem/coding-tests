@@ -1,0 +1,60 @@
+id: user_company_import
+label: 'Import Users from JSON'
+migration_group: default
+source:
+  plugin: json
+  data_fetcher_plugin: http
+  urls:
+    - 'https://jsonplaceholder.typicode.com/users'
+  item_selector: '[*]'
+  fields:
+    - name: id
+      label: 'User ID'
+    - name: name
+      label: 'Name'
+    - name: username
+      label: 'Username'
+    - name: email
+      label: 'Email'
+    - name: address
+      label: 'Address'
+    - name: phone
+      label: 'Phone'
+    - name: website
+      label: 'Website'
+    - name: company
+      label: 'Company'
+  ids:
+    id:
+      type: integer
+process:
+  field_id: id
+  field_name: name
+  field_username: username
+  field_email: email
+  field_phone: phone
+  field_website:
+    plugin: skip_on_empty
+    source: website
+    method: 'skip'
+    process:
+      value: website
+  field_company:
+    plugin: entity_generate
+    source: company.name
+    value_key: field_name
+    entity_type: node
+    bundle: company
+    ignore_case: true
+    process:
+      field_name: company.name
+      field_catchphrase: company.catchPhrase
+      field_bs: company.bs
+destination:
+  plugin: 'entity:node'
+  default_bundle: user
+dependencies:
+  enforced:
+    module:
+      - user_company_import
+      - migrate_plus

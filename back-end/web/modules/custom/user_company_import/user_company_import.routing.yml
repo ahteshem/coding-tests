@@ -1,0 +1,7 @@
+user_company_import.page:
+  path: '/user-company-content'
+  defaults:
+    _controller: '\Drupal\user_company_import\Controller\UserCompanyContentController::content'
+    _title: 'User and Company Content'
+  requirements:
+    _permission: 'access content'

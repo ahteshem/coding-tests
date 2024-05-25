@@ -1,0 +1,10 @@
+name: 'User and Company Migration'
+type: module
+description: 'Migrate users and companies from JSONPlaceholder API into Drupal.'
+package: Custom
+core_version_requirement: ^10
+dependencies:
+  - drupal:migrate
+  - drupal:migrate_plus
+  - drupal:migrate_tools
+  - drupal:node

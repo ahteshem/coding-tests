@@ -1,0 +1,6 @@
+services:
+  user_company_import.commands:
+    class: Drupal\user_company_import\Drush\Commands\JsonImportCommands
+    arguments: ['@plugin.manager.migration']
+    tags:
+      - { name: drush.command }
